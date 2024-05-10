@@ -1,11 +1,16 @@
+import { useState } from "react";
 import { CORE_CONCEPTS } from "./data.js";
 import Header from "./components/Header.jsx";
 import CoreConcept from "./components/CoreConcept.jsx";
 import TabButton from "./components/TabButton.jsx";
+import { EXAMPLES } from "./data.js";
 
 function App() {
+  const [selectedTopic, setSelectedTopic] = useState();
+
   function handlesSelect(selectedButton) {
-    console.log(selectedButton);
+    setSelectedTopic(selectedButton);
+    console.log(selectedTopic);
   }
   return (
     <div>
@@ -20,7 +25,7 @@ function App() {
               description={CORE_CONCEPTS[0].description}
               image={CORE_CONCEPTS[0].image}
             />
-            <CoreConcept  {...CORE_CONCEPTS[1]} />
+            <CoreConcept {...CORE_CONCEPTS[1]} />
             <CoreConcept {...CORE_CONCEPTS[2]} />
             <CoreConcept {...CORE_CONCEPTS[3]} />
           </ul>
@@ -36,7 +41,13 @@ function App() {
             <TabButton onSelect={() => handlesSelect("props")}>Props</TabButton>
             <TabButton onSelect={() => handlesSelect("state")}>State</TabButton>
           </menu>
-          Dymanic content
+          <div id="tab-content">
+            <h3> {EXAMPLES[selectedTopic].title}</h3>
+            <p> {EXAMPLES[selectedTopic].description}</p>
+            <pre>
+              <code> {EXAMPLES[selectedTopic].code}</code>
+            </pre>
+          </div>
         </section>
       </main>
     </div>
